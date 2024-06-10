@@ -22,3 +22,4 @@ The project is configured to run on *localhost* at port *3001*
 
 ### TODO
 - Plug in with frontend (Flutter)
+- Add firebase credentials and required files
