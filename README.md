@@ -1,4 +1,4 @@
-![image](https://github.com/RobertoPatino1/T6_SoftEng2_Back/assets/93289504/4ba929b8-7378-4fa6-9285-a251c3a30e3a)# Share Your Route Backend
+# Share Your Route Backend
 
 ### How to run the project
 **Clone the repository**
