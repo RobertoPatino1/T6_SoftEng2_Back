@@ -1,20 +1,26 @@
 # Share Your Route Backend
 
 ### How to run the project
-*Clone the repository*
+**Clone the repository**
 ```
 git clone https://github.com/RobertoPatino1/T6_SoftEng2_Back.git
 ```
 
-*Install dependencies*
+**Install dependencies**
 ```
 cd T6_SoftEng2_Back
 npm i
 ```
 
-*Start the server*
+**Start the server**
 ```
 node index.js
+```
+
+**Add the secret key**
+```
+mkdir .firebase
+mv <secret_key>.json .firebase/
 ```
 
 ### Project considerations
