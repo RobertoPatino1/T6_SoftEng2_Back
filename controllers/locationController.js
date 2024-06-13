@@ -1,12 +1,17 @@
-const updateLocation = (req, res) => {
-	const { latitude, longitude } = req.body;
-	const userId = req.user.uid;
+const { db } = require("../config/firebaseConfig");
 
-	console.log(`User ${userId} updated location:`, { latitude, longitude });
+exports.updateLocation = async (req, res) => {
+	const { uid, latitude, longitude } = req.body;
 
-	// Aquí puedes agregar la lógica para almacenar la ubicación en la base de datos si lo deseas
+	try {
+		await db.collection("locations").doc(uid).set({
+			latitude,
+			longitude,
+			timestamp: new Date(),
+		});
 
-	res.status(200).json({ message: "Location updated successfully" });
+		return res.status(200).json({ message: "Location updated successfully" });
+	} catch (error) {
+		return res.status(400).json({ error: error.message });
+	}
 };
-
-module.exports = { updateLocation };

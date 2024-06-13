@@ -1,50 +1,39 @@
-const { admin, db } = require("../services/firebase");
-const { validateRegister, validateLogin } = require("../utils/validate");
+const { auth } = require("../config/firebaseConfig");
 
-const register = async (req, res) => {
+exports.register = async (req, res) => {
 	const { email, password, firstName, lastName } = req.body;
 
-	const { valid, errors } = validateRegister(
-		email,
-		password,
-		firstName,
-		lastName
-	);
-	if (!valid) return res.status(400).json(errors);
-
 	try {
-		const userRecord = await admin.auth().createUser({
+		const userRecord = await auth.createUser({
 			email,
 			password,
 			displayName: `${firstName} ${lastName}`,
 		});
 
-		await db.collection("users").doc(userRecord.uid).set({
-			firstName,
-			lastName,
-			email,
-		});
-
-		res.status(201).json({ message: "User created successfully" });
+		return res
+			.status(201)
+			.json({ uid: userRecord.uid, email: userRecord.email });
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		return res.status(400).json({ error: error.message });
 	}
 };
 
-const login = async (req, res) => {
+exports.login = async (req, res) => {
 	const { email, password } = req.body;
 
-	const { valid, errors } = validateLogin(email, password);
-	if (!valid) return res.status(400).json(errors);
-
 	try {
-		const userRecord = await admin.auth().getUserByEmail(email);
-		const token = await admin.auth().createCustomToken(userRecord.uid);
+		const user = await auth.getUserByEmail(email);
 
-		res.json({ token });
+		//TODO: For simplicity, using a simple password comparison (this should be replaced with proper password verification)
+		if (user.passwordHash !== password) {
+			throw new Error("Invalid password");
+		}
+
+		// Generate a custom token
+		//TODO: USE JWT (JSON WEB TOKEN) FOR EXTRA POINTS ;)
+		const token = await auth.createCustomToken(user.uid);
+		return res.status(200).json({ token });
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		return res.status(400).json({ error: error.message });
 	}
 };
-
-module.exports = { register, login };

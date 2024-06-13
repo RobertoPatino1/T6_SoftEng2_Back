@@ -1,8 +1,8 @@
 const express = require("express");
-const router = express.Router();
 const { updateLocation } = require("../controllers/locationController");
-const { authenticate } = require("../middleware/authMiddleware");
 
-router.post("/location", authenticate, updateLocation);
+const router = express.Router();
+
+router.post("/location", updateLocation);
 
 module.exports = router;
