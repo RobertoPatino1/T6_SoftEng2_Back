@@ -1,10 +1,19 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
+const dotenv = require("dotenv");
+const authRoutes = require("./routes/authRoutes");
+const locationRoutes = require("./routes/locationRoutes");
+const { authenticate } = require("./middleware/authMiddleware");
+
+dotenv.config();
 
 const PORT = process.env.PORT || 4001;
-
 const app = express();
+
+app.use(express.json());
+app.use("/api/auth", authRoutes);
+app.use("/api", authenticate, locationRoutes);
 app.use(express.static("public"));
 
 const server = http.createServer(app);
