@@ -1,4 +1,24 @@
 const { db } = require("../config/firebaseConfig");
+// import realtime database from firebase
+import { getDatabase, ref, set } from "firebase/database";
+
+exports.setRealTimeLocation = async (req, res) => {
+	const { uid, latitude, longitude } = req.body;
+	const db = getDatabase();
+	const locationRef = ref(db, `locations/${uid}`);
+
+	try {
+		await set(locationRef, {
+			latitude,
+			longitude,
+			timestamp: new Date(),
+		});
+
+		return res.status(200).json({ message: "Location updated successfully" });
+	} catch (error) {
+		return res.status(400).json({ error: error.message });
+	}
+}
 
 exports.updateLocation = async (req, res) => {
 	const { uid, latitude, longitude } = req.body;
