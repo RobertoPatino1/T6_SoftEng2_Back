@@ -1,10 +1,14 @@
-const { db } = require("../config/firebaseConfig");
+const { db, admin } = require("../config/firebaseConfig");
 // import realtime database from firebase
 import { getDatabase, ref, set } from "firebase/database";
 
 exports.setRealTimeLocation = async (req, res) => {
 	const { uid, latitude, longitude } = req.body;
-	const db = getDatabase();
+	app = admin.initializeApp({
+		credential: admin.credential.cert(serviceAccount),
+		databaseURL: process.env.FIREBASE_DATABASE_URL,
+	});
+	const db = getDatabase(app);
 	const locationRef = ref(db, `locations/${uid}`);
 
 	try {
