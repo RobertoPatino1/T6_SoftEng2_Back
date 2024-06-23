@@ -1,5 +1,5 @@
-import { auth } from "firebase/auth";
-import { db, setDoc, doc } from "firebase/firestore";
+const { auth } = require("../config/firebaseConfig");
+const { db } = require("../config/firebaseConfig");
 
 export async function register(req, res) {
 	const { email, password, firstName, lastName } = req.body;

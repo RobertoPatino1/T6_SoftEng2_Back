@@ -1,6 +1,5 @@
 const { db, admin } = require("../config/firebaseConfig");
-// import realtime database from firebase
-import { getDatabase, ref, set } from "firebase/database";
+const { getDatabase, ref, set } = require("firebase/database");
 
 exports.setRealTimeLocation = async (req, res) => {
 	const { uid, latitude, longitude } = req.body;
