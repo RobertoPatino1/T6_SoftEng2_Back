@@ -34,8 +34,8 @@ APPLICATION_CREDENTIALS=../.firebase/serviceAccountKey.json
 FIREBASE_DATABASE_URL=https://share-your-route-ff4ad-default-rtdb.firebaseio.com
 ```
 ### Project considerations
-The project is configured to run on *localhost* at port *3001*
+- The project is configured to run locally on *localhost* at port *3001*
+- The deployed version of the backend can be found [here](https://shareyourroute-back.onrender.com/).
+- The real time database can be found [here](https://share-your-route-ff4ad-default-rtdb.firebaseio.com).
+- The application credentials can only be obtained via the sysadmin.
 
-### TODO
-- Plug in with frontend (Flutter)
-- ~~Add firebase credentials and required files~~
