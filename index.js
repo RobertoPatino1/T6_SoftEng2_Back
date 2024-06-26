@@ -8,6 +8,7 @@ const { authenticate } = require("./middleware/authMiddleware");
 
 dotenv.config();
 
+
 const PORT = process.env.PORT || 4001;
 const app = express();
 
@@ -33,3 +34,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+
+

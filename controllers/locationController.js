@@ -1,4 +1,27 @@
-const { db } = require("../config/firebaseConfig");
+const { db, admin } = require("../config/firebaseConfig");
+const { getDatabase, ref, set } = require("firebase/database");
+
+exports.setRealTimeLocation = async (req, res) => {
+	const { uid, latitude, longitude } = req.body;
+	app = admin.initializeApp({
+		credential: admin.credential.cert(serviceAccount),
+		databaseURL: process.env.FIREBASE_DATABASE_URL,
+	});
+	const db = getDatabase(app);
+	const locationRef = ref(db, `locations/${uid}`);
+
+	try {
+		await set(locationRef, {
+			latitude,
+			longitude,
+			timestamp: new Date(),
+		});
+
+		return res.status(200).json({ message: "Location updated successfully" });
+	} catch (error) {
+		return res.status(400).json({ error: error.message });
+	}
+}
 
 exports.updateLocation = async (req, res) => {
 	const { uid, latitude, longitude } = req.body;
