@@ -1,28 +1,32 @@
-const { auth } = require("../config/firebaseConfig");
-const { db } = require("../config/firebaseConfig");
+const { auth, db } = require("../config/firebaseConfig");
 
-export async function register(req, res) {
+
+function register(req, res) {
 	const { email, password, firstName, lastName } = req.body;
-	auth = auth.getAuth();
-	auth.createUserWithEmailAndPassword(email, password).then(async (userCredential) => {
-		const user = userCredential.user;
-		user_data = {
-			"names": firstName,
-			"lastnames": lastName,
-			"email": email,
-		}
-		await setDoc(doc(db, "users", user.uid), user_data);
-
-		return res.status(200).json({ uid: user.uid, email: user.email });
+	auth.createUser({
+		email: email,
+		emailVerified: false,
+		password: password,
+		displayName: `${firstName} ${lastName}`,
+		disabled: false,
+	}).then((userRecord) => {
+		db.collection("users").doc(userRecord.uid).set({
+			firstName,
+			lastName,
+			email,
+			createdAt: new Date(),
+		});
+		console.log("Successfully created new user:", userRecord.uid);
+		res.status(200).json({ message: "User created successfully", uid: userRecord.uid });
 	}).catch((error) => {
-		return res.status(400).json({ error: error.message });
+		console.log("Error creating new user:", error);
+		res.status(400).json({ message: "Error creating user", error: error.message });
 	});
+}
 
-};
-
-export async function login(req, res) {
+function login(req, res) {
 	const { email, password } = req.body;
-
+	
 	auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
 		const user = userCredential.user;
 
@@ -31,3 +35,5 @@ export async function login(req, res) {
 		return res.status(400).json({ error: error.message });
 	});
 }
+
+module.exports = { register, login };
