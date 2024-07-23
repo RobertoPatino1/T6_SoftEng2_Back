@@ -1,16 +1,9 @@
-const { db } = require("../config/firebaseConfig");
-const { GeoPoint }= require("firebase-admin/firestore");
+const { db, admin } = require("../config/firebaseConfig");
 
-function makeGeoPoint(location) {
-  var [latitude, longitude ] = location.split(",");
-  latitude = parseFloat(latitude);
-  longitude = parseFloat(longitude);
-  return new GeoPoint(latitude, longitude);
-}
 async function saveRoute(req, res) {
   const { creator_uid, route_name, route_description, route_distance, route_duration, route_locations } = req.body;
   console.log("body: ", req.body);
-  var route_geopoints = route_locations.map((location) => makeGeoPoint(location));
+  var route_geopoints = route_locations.map((location) => new admin.firestore.GeoPoint(location.latitude, location.longitude));
   db.collection("routes").doc().set({
     creator_uid,
     route_name,
