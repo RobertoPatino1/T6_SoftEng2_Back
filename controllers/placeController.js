@@ -1,6 +1,6 @@
 const { db, admin } = require("../config/firebaseConfig");
 
-exports.getPlaces = async (req, res) => {
+async function getPlaces(req, res) {
   try {
     const places = await db.collection("places").get();
     const placesList = [];
@@ -13,7 +13,7 @@ exports.getPlaces = async (req, res) => {
   }
 };
 
-exports.getPlace = async (req, res) => {
+async function getPlace(req, res) {
   const { place } = req.params;
   try {
     const place_db = await db.collection("places").doc(place).get();
@@ -31,7 +31,7 @@ exports.getPlace = async (req, res) => {
   }
 };
 
-exports.savePlace = async (req, res) => {
+async function savePlace(req, res) {
   const { place_name, place_description, place_location } = req.body;
   try {
     await db.collection("places").doc().set({
@@ -45,3 +45,5 @@ exports.savePlace = async (req, res) => {
     return res.status(400).json({ error: error.message });
   }
 };
+
+module.exports = { getPlaces, getPlace, savePlace };

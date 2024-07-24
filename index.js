@@ -4,7 +4,7 @@ const socketIo = require("socket.io");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/authRoutes");
 const locationRoutes = require("./routes/locationRoutes");
-const routesRoutes = require("./routes/routesRoutes");
+const routesRoutes = require("./routes/routeRoutes");
 const { authenticate } = require("./middleware/authMiddleware");
 
 dotenv.config();

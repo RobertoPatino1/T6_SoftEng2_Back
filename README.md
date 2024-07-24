@@ -1,5 +1,3 @@
-    
-
 # Share Your Route Backend
 
 ### How to run the project
@@ -48,15 +46,11 @@ FIREBASE_DATABASE_URL=https://share-your-route-ff4ad-default-rtdb.firebaseio.com
 
 The project is configured to run on *localhost* at port *3001*
 
-### TODO
-
-- Plug in with frontend (Flutter)
-
 ---
 
 # API Documentation
 
-> POST petitions should send json with the correct parameters
+> POST petitions should send a json object with the correct parameters
 
 ## User
 
@@ -68,12 +62,12 @@ Registers a new user.
 
 **Parameters:**
 
-| Parameter | Description                | Value Type | Example Value        |
-| --------- | -------------------------- | ---------- | -------------------- |
-| email     | The email of the user      | `string`   | `"msuarez@mail.com"` |
-| password  | The password of the user   | `string`   | `"Kx74*/abcd"`       |
-| firstName | The first name of the user | `string`   | `"Merlino"`          |
-| lastName  | The last name of the user  | `string`   | `"Suárez"`           |
+| Parameter | Description                | Value Type | Example Value          |
+| --------- | -------------------------- | ---------- | ---------------------- |
+| email     | The email of the user      | `string` | `"msuarez@mail.com"` |
+| password  | The password of the user   | `string` | `"Kx74*/abcd"`       |
+| firstName | The first name of the user | `string` | `"Merlino"`          |
+| lastName  | The last name of the user  | `string` | `"Suárez"`          |
 
 ```json
 {
@@ -83,7 +77,9 @@ Registers a new user.
 	"lastName":"Suárez"
 }
 ```
+
 ### Log in a user and start its session (Pendant of revision)
+
 #### POST /login
 
 Logs in a user.
@@ -92,8 +88,8 @@ Logs in a user.
 
 | Parameter | Description              | Value Type | Example Value          |
 | --------- | ------------------------ | ---------- | ---------------------- |
-| email     | The email of the user    | `string`   | `"msuarez@mail.com"`   |
-| password  | The password of the user | `string`   | `"Kx74*/abcd"`         |
+| email     | The email of the user    | `string` | `"msuarez@mail.com"` |
+| password  | The password of the user | `string` | `"Kx74*/abcd"`       |
 
 ```json
 {
@@ -105,16 +101,18 @@ Logs in a user.
 ## Routes
 
 ### Get a rout by its ID
+
 #### GET /:route_id
 
 **Parameters**
 
-| Parameter| Description     | Value Type| Example Value                 |
-| -------- | ----------------| ----------| ------------------------------|
-| route_id | UID of the route| `string`  | `"QWFSAFXascasfZXCASf123rras"`|
+| Parameter | Description      | Value Type | Example Value                    |
+| --------- | ---------------- | ---------- | -------------------------------- |
+| route_id  | UID of the route | `string` | `"QWFSAFXascasfZXCASf123rras"` |
 
 **Return**
 Returns a route object.
+
 ```json
 {
     "creator_uid": "Abcd1234Efgh5678Ijkl",
@@ -139,13 +137,14 @@ Returns a route object.
 ```
 
 ### Get a route by its name
+
 #### GET /:route_name
 
 **Parameters**
 
-| Parameter         | Description        | Value Type  | Example Value      |
-| ----------------- | ------------------ | ----------- | ------------------ |
-| route_name        | Name of the  route | `string`    | `"Ruta Spondylus"` |
+| Parameter  | Description        | Value Type | Example Value        |
+| ---------- | ------------------ | ---------- | -------------------- |
+| route_name | Name of the  route | `string` | `"Ruta Spondylus"` |
 
 ### Create a new Route
 
@@ -180,5 +179,3 @@ Returns a route object.
     ]
 }
 ```
-
-
