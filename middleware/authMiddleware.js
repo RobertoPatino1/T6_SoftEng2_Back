@@ -2,7 +2,7 @@ const { auth } = require("../config/firebaseConfig");
 
 exports.authenticate = async (req, res, next) => {
 	const token = req.headers.authorization;
-
+	return res.status(200).json({ token });
 	if (!token) {
 		return res.status(403).json({ error: "No token provided" });
 	}
