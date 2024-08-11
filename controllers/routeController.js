@@ -1,4 +1,4 @@
-const { db, admin } = require("../config/firebaseConfig");
+const { db } = require("../config/firebaseConfig");
 
 
 async function saveRoute(req, res) {
@@ -29,25 +29,35 @@ async function saveRoute(req, res) {
     return res.status(400).json({ error: error.message });
   }
 }
-async function saveRouteOLD(req, res) {
-  const { creator_uid, route_name, route_description, route_distance, route_duration, route_locations } = req.body;
-  console.log("body: ", req.body);
-  var route_geopoints = route_locations.map((location) => new admin.firestore.GeoPoint(location.latitude, location.longitude));
-  db.collection("routes").doc().set({
-    creator_uid,
-    route_name,
-    route_description,
-    route_distance,
-    route_duration,
-    route_geopoints,
-    createdAt: new Date(),
-  }).then((route_id) => {
-    console.log("Route created successfully: ", route_id);
-    res.status(200).json({ message: "Route created successfully" });
-  }).catch((error) => {
-    res.status(400).json({ error: error.message });
-  });
 
+async function updateRoute(req, res) {
+  const { route_id } = req.params;
+  const { name, placesList, currentPlaceIndex,
+    numberPeople, numberGuides, routeIsPublic,
+    routeDate, startingPoint, startTime, endTime,
+    image, description, hasStarted, routeType } = req.body;
+  try {
+    await db.collection("routes").doc(route_id).update({
+      name,
+      placesList,
+      currentPlaceIndex,
+      numberPeople,
+      numberGuides,
+      routeIsPublic,
+      routeDate,
+      startingPoint,
+      startTime,
+      endTime,
+      image,
+      description,
+      hasStarted,
+      routeType,
+      updatedAt: new Date(),
+    });
+    return res.status(200).json({ message: "Route updated successfully" });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
 }
 
 async function getRoutes(req, res) {
@@ -103,4 +113,4 @@ async function getUserRoutes(req, res) {
   }
 }
 
-module.exports = { saveRoute, getRoute, getUserRoutes, getRoutes };
+module.exports = { saveRoute, getRoute, getUserRoutes, getRoutes, updateRoute };

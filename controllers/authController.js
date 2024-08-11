@@ -3,6 +3,8 @@ const { auth, db } = require("../config/firebaseConfig");
 
 function register(req, res) {
 	const { email, password, firstName, lastName } = req.body;
+	console.log("Registering user");
+	console.log(req.body);
 	auth.createUser({
 		email: email,
 		emailVerified: false,
