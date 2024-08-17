@@ -15,14 +15,14 @@ async function getUserData(req, res) {
 
 async function updateUser(req, res) {
   const { user_id } = req.params;
-  const { name, email, phone,
-    profile_picture, background_picture,
-    birthdate, bio } = req.body;
+  const { firstName, lastName, email,
+    profilePhoto,
+    bio } = req.body;
 
   try {
     await db.collection("users").doc(user_id).update({
-      name, email, phone, profile_picture,
-      background_picture, birthdate, bio
+      firstName, lastName, email, profilePhoto,
+      bio
     });
     return res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
@@ -31,4 +31,4 @@ async function updateUser(req, res) {
 }
 
 
-module.exports = { getUserData };
+module.exports = { getUserData, updateUser };
