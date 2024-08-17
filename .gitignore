@@ -137,3 +137,4 @@ dist
 # If you need to include hidden files in your project, you can remove the following line
 .*
 # If the previous line is not required to be removed, other lines with a dot at the beginning can be removed.
+/.vs
