@@ -5,7 +5,7 @@ async function saveRoute(req, res) {
   const { name, placesList, currentPlaceIndex,
     numberPeople, numberGuides, routeIsPublic,
     routeDate, startingPoint, startTime, endTime,
-    image, description, hasStarted, routeType } = req.body;
+    image, description, hasStarted, routeType, owner_uid } = req.body;
   try {
     await db.collection("routes").doc().set({
       name,
@@ -22,6 +22,7 @@ async function saveRoute(req, res) {
       description,
       hasStarted,
       routeType,
+      owner_uid,
       createdAt: new Date(),
     });
     return res.status(200).json({ message: "Route created successfully" });
@@ -52,6 +53,7 @@ async function updateRoute(req, res) {
       description,
       hasStarted,
       routeType,
+      owner_uid,
       updatedAt: new Date(),
     });
     return res.status(200).json({ message: "Route updated successfully" });
