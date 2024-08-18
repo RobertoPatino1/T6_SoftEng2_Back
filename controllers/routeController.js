@@ -5,7 +5,7 @@ async function saveRoute(req, res) {
   const { name, placesList, currentPlaceIndex,
     numberPeople, numberGuides, routeIsPublic,
     routeDate, startingPoint, startTime, endTime,
-    image, description, hasStarted, routeType, owner_uid } = req.body;
+    image, description, hasStarted, routeType, ownerUid } = req.body;
   try {
     await db.collection("routes").doc().set({
       name,
@@ -36,7 +36,7 @@ async function updateRoute(req, res) {
   const { name, placesList, currentPlaceIndex,
     numberPeople, numberGuides, routeIsPublic,
     routeDate, startingPoint, startTime, endTime,
-    image, description, hasStarted, routeType } = req.body;
+    image, description, hasStarted, routeType, ownerUid } = req.body;
   try {
     await db.collection("routes").doc(route_id).update({
       name,
