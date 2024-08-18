@@ -71,9 +71,11 @@ async function getRoutes(req, res) {
       if (visibility) {
         const v = visibility == "public";
         if (data.routeIsPublic == v) {
+          data.id = doc.id;
           routesList.push(data);
         }
       } else {
+        data.id = doc.id;
         routesList.push(data);
       }
     });
