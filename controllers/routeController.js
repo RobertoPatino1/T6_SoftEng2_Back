@@ -93,7 +93,9 @@ async function getRoute(req, res) {
       return res.status(404).json({ error: "Route not found" });
     }
     console.log("Ruta encontrada: ", route.data());
-    return res.status(200).json(route.data());
+    data = route.data();
+    data.id = route_id;
+    return res.status(200).json(data);
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
