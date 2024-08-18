@@ -22,7 +22,7 @@ async function saveRoute(req, res) {
       description,
       hasStarted,
       routeType,
-      owner_uid,
+      ownerUid,
       createdAt: new Date(),
     });
     return res.status(200).json({ message: "Route created successfully" });
@@ -53,7 +53,7 @@ async function updateRoute(req, res) {
       description,
       hasStarted,
       routeType,
-      owner_uid,
+      ownerUid,
       updatedAt: new Date(),
     });
     return res.status(200).json({ message: "Route updated successfully" });
