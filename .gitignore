@@ -131,6 +131,7 @@ dist
 
 # Secret files
 .firebase
+serviceAccountKey.json
 
 
 # Hidden files tend to be configuration files or temporary files and start with a dot.
