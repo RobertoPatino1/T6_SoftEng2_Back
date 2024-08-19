@@ -88,15 +88,15 @@ async function getRoutes(req, res) {
 }
 
 async function getRoute(req, res) {
-  const { route_id } = req.params;
+  const { route_uid } = req.params;
   try {
-    const route = await db.collection("routes").doc(route_id).get();
+    const route = await db.collection("routes").doc(route_uid).get();
     if (!route.exists) {
       return res.status(404).json({ error: "Route not found" });
     }
     console.log("Ruta encontrada: ", route.data());
     data = route.data();
-    data.id = route_id;
+    data.id = route_uid;
     return res.status(200).json(data);
   } catch (error) {
     return res.status(400).json({ error: error.message });
